@@ -14,18 +14,18 @@ panic意味着挂了，是不可恢复的。
 
 ```go
 func Go(f func()) {
-	wg.Add(1)
- 	go func() {
-  		defer func() {
-   			if err := recover(); err != nil {
-    			debug.PrintStack()
-   			}
-   			wg.Done()
-  		}()
+    wg.Add(1)
+    go func() {
+        defer func() {
+	    if err := recover(); err != nil {
+	        debug.PrintStack()
+	    }
+	    wg.Done()
+  	}()
 
-  		f()
- 	}()
-
- 	wg.Wait()
+  	f()
+     }()
+    
+    wg.Wait()
 }
 ```
